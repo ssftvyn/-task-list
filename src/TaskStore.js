@@ -7,10 +7,10 @@ class TaskStore {
     makeAutoObservable(this);
   }
 
-  addTask(title) {
-    const newTask = { id: Date.now().toString(), title, completed: false, subtasks: [] };
+  addTask(title, description) {
+    const newTask = { id: Date.now().toString(), title, description, completed: false, subtasks: [] };
     this.tasks.push(newTask);
-  }
+}
 
   addSubtask(parentId, title) {
     const parentTask = this.findTaskById(parentId);
