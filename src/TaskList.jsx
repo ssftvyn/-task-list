@@ -8,11 +8,11 @@ const TaskList = observer(() => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
 
-    const handleRemoveTask = (id) => {
-        taskStore.removeTask(id);
-        taskStore.saveToLocalStorage();
-        setSelectedTask(null); 
-    };
+    // const handleRemoveTask = (id) => {
+    //     taskStore.removeTask(id);
+    //     taskStore.saveToLocalStorage();
+    //     setSelectedTask(null); 
+    // };
 
     const handleTaskClick = (task) => {
         setSelectedTask(task);
@@ -30,7 +30,7 @@ const TaskList = observer(() => {
                             task={task} 
                             onClick={() => handleTaskClick(task)} 
                         />
-                        <button onClick={() => handleRemoveTask(task.id)}>Удалить</button>
+ 
                     </li>
                 ))}
             </ul>

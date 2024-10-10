@@ -24,9 +24,21 @@ class TaskStore {
     const task = this.findTaskById(id);
     if (task) {
       task.completed = !task.completed;
-      this.updateParentCompletion(task);
+  
+      // Если задача отмечена как завершенная, отмечаем все подзадачи
+      if (task.completed) {
+        task.subtasks.forEach(subtask => {
+          subtask.completed = true;
+        });
+      } else {
+        // Если задача отмечена как незавершенная, отменяем завершение подзадач
+        task.subtasks.forEach(subtask => {
+          subtask.completed = false;
+        });
+      }
     }
   }
+  
 
   updateParentCompletion(task) {
     const parentTask = this.findParentTask(task.id);
@@ -73,7 +85,7 @@ class TaskStore {
     this.tasks.forEach(task => {
       task.subtasks = task.subtasks.filter(subtask => subtask.id !== id);
     });
-  }
+  }  
 
   editTask(id, newTitle) {
     const task = this.findTaskById(id);
