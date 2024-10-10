@@ -12,41 +12,45 @@ class TaskStore {
     this.tasks.push(newTask);
 }
 
-  addSubtask(parentId, title) {
-    const parentTask = this.findTaskById(parentId);
-    if (parentTask) {
+addSubtask(parentId, title) {
+  const parentTask = this.findTaskById(parentId);
+  if (parentTask) {
       const newSubtask = { id: Date.now().toString(), title, completed: false, subtasks: [] };
       parentTask.subtasks.push(newSubtask);
-    }
   }
+}
 
-  toggleTaskCompletion(id) {
-    const task = this.findTaskById(id);
-    if (task) {
+
+toggleTaskCompletion(id) {
+  const task = this.findTaskById(id);
+  if (task) {
       task.completed = !task.completed;
-  
-      // Если задача отмечена как завершенная, отмечаем все подзадачи
-      if (task.completed) {
-        task.subtasks.forEach(subtask => {
-          subtask.completed = true;
-        });
-      } else {
-        // Если задача отмечена как незавершенная, отменяем завершение подзадач
-        task.subtasks.forEach(subtask => {
-          subtask.completed = false;
-        });
-      }
-    }
-  }
-  
 
-  updateParentCompletion(task) {
-    const parentTask = this.findParentTask(task.id);
-    if (parentTask) {
+      if (task.completed) {
+          task.subtasks.forEach(subtask => {
+              subtask.completed = true;
+          });
+      } else {
+          task.subtasks.forEach(subtask => {
+              subtask.completed = false;
+          });
+      }
+
+      this.updateParentCompletion(task);
+  }
+}
+
+updateParentCompletion(task) {
+  const parentTask = this.findParentTask(task.id);
+  if (parentTask) {
       const allCompleted = parentTask.subtasks.every(subtask => subtask.completed);
       parentTask.completed = allCompleted;
-    }
+      if (!allCompleted) {
+          parentTask.completed = false;
+      }
   }
+}
+
 
   findTaskById(id) {
     for (const task of this.tasks) {
