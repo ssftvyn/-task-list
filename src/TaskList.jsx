@@ -28,7 +28,7 @@ const TaskList = observer(() => {
         if (selectedTask) {
             taskStore.removeTask(selectedTask.id);
             taskStore.saveToLocalStorage();
-            setSelectedTask(null); 
+            setSelectedTask(null);
         }
     };
 
@@ -41,13 +41,13 @@ const TaskList = observer(() => {
                         <li key={task.id}>
                             <TaskItem 
                                 task={task} 
-                                onClick={() => handleTaskClick(task)} 
+                                onClick={handleTaskClick} 
                             />
                         </li>
                     ))}
                 </ul>
                 <div>
-                    <button className ="create-button" onClick={() => setIsModalOpen(true)}>Создать новую задачу</button>
+                    <button className="create-button" onClick={() => setIsModalOpen(true)}>Создать новую задачу</button>
                 </div>
             </div>
             <div className="task-details">
@@ -75,5 +75,6 @@ const TaskList = observer(() => {
         </div>
     );
 });
+
 
 export default TaskList;

@@ -26,19 +26,16 @@ toggleTaskCompletion(id) {
   if (task) {
       task.completed = !task.completed;
 
-      if (task.completed) {
-          task.subtasks.forEach(subtask => {
-              subtask.completed = true;
-          });
-      } else {
-          task.subtasks.forEach(subtask => {
-              subtask.completed = false;
-          });
-      }
+      // Update subtasks based on parent completion state
+      task.subtasks.forEach(subtask => {
+          subtask.completed = task.completed; // Match the parent task's completion state
+      });
 
+      // Check and update the parent task's completion status
       this.updateParentCompletion(task);
   }
 }
+
 
 updateParentCompletion(task) {
   const parentTask = this.findParentTask(task.id);
