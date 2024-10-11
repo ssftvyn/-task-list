@@ -82,3 +82,21 @@ textarea {
     list-style-type: none;
     padding: 0;
 }
+
+.task-names {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-button {
+    margin-right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem; 
+}
+
+.task-title {
+    cursor: pointer;
+    flex-grow: 1;
+}
